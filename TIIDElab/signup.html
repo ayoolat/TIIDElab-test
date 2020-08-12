@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie-edge">
+    <style>
+       
+        input{
+            width: 80%;
+            padding: 3%;
+            margin: 5px 20px;
+            border-radius: 10px;
+        }
+
+        .submit{
+            background-color: slateblue;
+            width: 85%;
+            color: snow;
+            font-size: 24px;
+            padding: 2%;
+        }
+
+        input:focus{
+            outline: none;
+            background-color: salmon;
+            color: seashell;
+        }
+
+        h3{
+            color: slateblue;
+            margin: 15px;
+            font-size: 32px;
+        }
+
+        .form-container, .instruction{
+            float: left;
+            width: 50%;
+        }
+
+        @media screen and (max-width: 800px){
+            .form-container, .instruction{
+                width: 100%;
+            }
+        }
+
+    </style>
+    <title>TIIDELAB Signup Form</title>
+</head>
+<body style="background-color: mediumpurple">
+
+    <div style="background-color: mistyrose;
+                height: 60%; width: 70%;
+                border-radius: 10px;
+                margin: 100px auto;
+                padding: 5px;">
+
+        <div class="instruction">
+            <img src="images.png" alt="learning" srcset="" style="width: 100%;">
+            <h3>TIIDELab – a technology fellowship for young innovators</h3>
+        </div>
+
+        <div style="background-color: aquamarine;" class="form-container"  >
+
+            <h3>Registration Form</h3>
+
+            <form action="" name="SignUpForm" id="SignUpForm" onsubmit="processForm()">
+                <input type="text" name="fullname" id="fullName" required placeholder="Fullname">
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="text" name="username" id="userName" placeholder="Username" required>
+                <input type="password" name="password" id="password" placeholder="Password"  required>
+                <input type="password" name="cpassword" id="confirmPassword" placeholder="Confirm password\" required>
+                <input type="submit" value="signup" class="submit">
+            </form>
+        </div>
+
+        <div style="clear: left;"></div>
+
+    </div>
+
+    <script>
+
+        document.getElementById("SignUpForm").addEventListener("submit", function(even){
+            event.preventDefault();
+        })
+
+         function processForm() {
+            var fullName = document.getElementById("fullName").value;
+                 email = document.getElementById("email").value;
+                 username = document.getElementById("userName").value;
+                 password = document.getElementById("password").value;
+                 cpassword = document.getElementById("confirmPassword").value;
+            
+            if(password != cpassword){
+                alert("password mismatch!!");
+            } else{
+                var data = {
+                    "fullName": fullName,
+                    "email": email,
+                    "userName": username,
+                    "newpassword": password,
+                    "isEnabled":true,
+                    "roles":["user"]
+                }
+
+                    fetch("http://api.openclass.ng/Register",{
+                        method:"POST",
+                        body:JSON.stringify(data),
+                        headers:{
+                            "content-Type": "application/json"
+                        }
+
+                    }).then(function(data){
+                        alert("congrats!");
+                    })
+                    }
+            
+        }
+      
+    </script>
+</body>
+</html>
